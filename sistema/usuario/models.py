@@ -1,42 +1,53 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Create your models here.
-
-# Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, dpi, nombre, password=None, **extra_fields):
         if not email:
             raise ValueError('El Email es obligatorio')
+        
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+        usuario = self.model(
+            email=email,
+            dpi=dpi,
+            nombre=nombre,
+            password=password
+            **extra_fields
+        )
+        usuario.set_password(password)
+        usuario.save(using=self._db)
+        return usuario
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self, email, dpi, nombre, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-class Usuario(AbstractBaseUser):
-    id_usuario= models.AutoField(primary_key=True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser debe tener is_superuser=True.')
+
+        return self.create_user(email, dpi, nombre, password, **extra_fields)
+
+class Usuario(AbstractBaseUser, PermissionsMixin):
+    id_usuario = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255, unique=True)
     nombres = models.CharField(max_length=255)
-    apellidos = models.CharField(max_length=255)
     dpi = models.CharField(max_length=13, unique=True)
-    genero = models.CharField(max_length=255)
-    escolaridad = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=75)
-    direccion = models.CharField(max_length=255)
-    etnia = models.CharField(max_length=255)
-    fecha_nacimiento = models.DateField()
-    edad = models.IntegerField()
-    password = models.CharField(max_length=100) 
-    
-
     
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    is_superuser = models.BooleanField(default=False) 
+    
     objects = CustomUserManager()
-
+    
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nombre', 'dpi']
+
+    def has_perm(self, perm, obj=None):
+        # Define aquí tu lógica para los permisos
+        return True
+
+    def has_module_perms(self, app_label):
+        # Define aquí tu lógica para los permisos de módulo
+        return True

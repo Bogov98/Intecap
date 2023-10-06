@@ -17,3 +17,10 @@ __pycache__/
 
 # Archivos de caché de Python
 __pycache__/
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración
+.env
