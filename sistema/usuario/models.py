@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils import timezone
+
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, dpi, nombre, password=None, **extra_fields):
+    def create_user(self, email, dpi, nombre,apellido, password=None, **extra_fields):
         if not email:
             raise ValueError('El Email es obligatorio')
         
@@ -11,7 +13,8 @@ class CustomUserManager(BaseUserManager):
             email=email,
             dpi=dpi,
             nombre=nombre,
-            password=password
+            apellido=apellido,
+            password=password,
             **extra_fields
         )
         usuario.set_password(password)
@@ -32,14 +35,22 @@ class CustomUserManager(BaseUserManager):
 class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
     email = models.CharField(max_length=255, unique=True)
-    nombres = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255)
+    apellido= models.CharField(max_length=255)
     dpi = models.CharField(max_length=13, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    update_at = models.DateTimeField(auto_now=True)
+
     
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False) 
     
     objects = CustomUserManager()
+    class Meta:
+        ordering = ['-created_at']
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nombre', 'dpi']
