@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,11 +45,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -81,12 +85,12 @@ WSGI_APPLICATION = "sistema.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": 'intecap',
-        "USER": 'root',
-        "PASSWORD": 'gu-400',
+        "USER": 'postgres',
+        "PASSWORD": '12345',
         "HOST": 'localhost',
-        "PORT": '3306',
+        "PORT": '5431',
     }
 }
 
@@ -134,6 +138,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'aplicacion/static'),
 ]
 
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -170,6 +178,12 @@ SPECTACULAR_SETTINGS = {
 
 #--------------SIMPLE_JWT
 SIMPLE_JWT = {
+
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Duración del token en minutos
+    #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Duración de renovación automática del token
+    #'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Duración máxima del token
+    #'SLIDING_TOKEN_REFRESH_ALMOST_LIFETIME': timedelta(days=6),  # Duración para renovar antes de la expiración
+
     'ALGORITHM': 'HS256',
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id_usuario',

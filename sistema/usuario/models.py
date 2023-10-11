@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         usuario.save(using=self._db)
         return usuario
 
-    def create_superuser(self, email, dpi, nombre, password=None, **extra_fields):
+    def create_superuser(self, email, dpi, nombre,apellido, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -30,7 +30,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser debe tener is_superuser=True.')
 
-        return self.create_user(email, dpi, nombre, password, **extra_fields)
+        return self.create_user(email, dpi, nombre,apellido, password, **extra_fields)
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
@@ -39,8 +39,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     apellido= models.CharField(max_length=255)
     dpi = models.CharField(max_length=13, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
     update_at = models.DateTimeField(auto_now=True)
 
     
@@ -53,7 +51,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         ordering = ['-created_at']
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nombre', 'dpi']
+    REQUIRED_FIELDS = ['nombre','apellido',  'dpi']
 
     def has_perm(self, perm, obj=None):
         # Define aquí tu lógica para los permisos
