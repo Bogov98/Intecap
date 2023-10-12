@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "corsheaders",
+    "task",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     # Directorio donde se encuentran tus archivos estáticos
     os.path.join(BASE_DIR, 'aplicacion/static'),
+    os.path.join(BASE_DIR, 'usuario/static'),
 ]
 
 
