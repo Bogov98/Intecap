@@ -1,8 +1,9 @@
+from django import views
+from .import views
 from django.urls import path
-from rest_framework import routers
-from .api import projectViewSet
 
-router = routers.DefaultRouter()
-router.register('api/aplicacion', projectViewSet, 'aplicacion')
 
-urlpatterns = router.urls
+urlpatterns = [
+  #  path('', views.base, name='base'),
+    
+]

@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "corsheaders",
     "task",
+
+   
 ]
 
 MIDDLEWARE = [
@@ -133,12 +135,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     # Directorio donde se encuentran tus archivos estáticos
+   
     os.path.join(BASE_DIR, 'aplicacion/static'),
-    os.path.join(BASE_DIR, 'usuario/static'),
+    #BASE_DIR / 'static'
+    #os.path.join(BASE_DIR, 'usuario/static'),
 ]
+
+
+
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -181,7 +191,7 @@ SPECTACULAR_SETTINGS = {
 #--------------SIMPLE_JWT
 SIMPLE_JWT = {
 
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Duración del token en minutos
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Duración del token en minutos
     #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Duración de renovación automática del token
     #'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Duración máxima del token
     #'SLIDING_TOKEN_REFRESH_ALMOST_LIFETIME': timedelta(days=6),  # Duración para renovar antes de la expiración

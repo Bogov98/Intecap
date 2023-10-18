@@ -10,7 +10,7 @@ class Estudiante(models.Model):
     escolaridad = models.CharField(max_length=100)
     telefono = models.IntegerField()
     direccion = models.CharField(max_length=100)
-    etina = models.CharField(max_length=100)
+    etnia = models.CharField(max_length=100)
     fecha_nacimiento = models.DateField()
     edad = models.IntegerField()
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

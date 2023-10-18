@@ -5,9 +5,18 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers import UserSerializer
+from api.serializers import UserSerializer,CategoriaCursoSerializer, CursoSerializer, EstudianteSerializer
+
 from usuario.models import Usuario
+from aplicacion.models import Estudiante
+
+from aplicacion.models import Estudiante,CategoriaCurso, Curso
 from django.contrib.auth import get_user_model
+from rest_framework import generics
+
+
+
+
 
 
 
@@ -66,3 +75,17 @@ class CustomView(APIView):
     def get(self, request):
         # Aquí colocas tu lógica de vista personalizada
         return Response({"message": "Puedes ver esta vista porque eres superusuario o tienes un permiso especial."}, status=status.HTTP_200_OK)
+
+
+#–--------------PARA REGISTRO -----------------
+class CategoriaCursoViewSet(viewsets.ModelViewSet):
+    queryset = CategoriaCurso.objects.all()
+    serializer_class = CategoriaCursoSerializer
+
+class CursoViewSet(viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+class EstudianteViewSet(viewsets.ModelViewSet):
+    queryset = Estudiante.objects.all()
+    serializer_class = EstudianteSerializer
