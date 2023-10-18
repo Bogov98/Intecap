@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "corsheaders",
-    "task",
+  
+
 
    
 ]
@@ -191,7 +192,7 @@ SPECTACULAR_SETTINGS = {
 #--------------SIMPLE_JWT
 SIMPLE_JWT = {
 
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Duración del token en minutos
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),  # Duración del token en minutos
     #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Duración de renovación automática del token
     #'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Duración máxima del token
     #'SLIDING_TOKEN_REFRESH_ALMOST_LIFETIME': timedelta(days=6),  # Duración para renovar antes de la expiración

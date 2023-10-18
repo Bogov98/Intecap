@@ -5,10 +5,11 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers import UserSerializer,CategoriaCursoSerializer, CursoSerializer, EstudianteSerializer
+from api.serializers import UserSerializer,CategoriaCursoSerializer, CursoSerializer, EstudianteSerializer,FavoritoSerializer, InscripcionSerializer, NotificacionSerializer
+
 
 from usuario.models import Usuario
-from aplicacion.models import Estudiante
+from aplicacion.models import Estudiante, Favorito, Inscripcion,Notificacion
 
 from aplicacion.models import Estudiante,CategoriaCurso, Curso
 from django.contrib.auth import get_user_model
@@ -89,3 +90,15 @@ class CursoViewSet(viewsets.ModelViewSet):
 class EstudianteViewSet(viewsets.ModelViewSet):
     queryset = Estudiante.objects.all()
     serializer_class = EstudianteSerializer
+
+class FavoritoViewSet(viewsets.ModelViewSet):
+    queryset = Favorito.objects.all()
+    serializer_class = FavoritoSerializer
+
+class InscripcionViewSet(viewsets.ModelViewSet):
+    queryset = Inscripcion.objects.all()
+    serializer_class = InscripcionSerializer
+
+class NotificacionViewSet(viewsets.ModelViewSet):
+    queryset = Notificacion.objects.all()
+    serializer_class = NotificacionSerializer

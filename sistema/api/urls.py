@@ -16,6 +16,10 @@ router = routers.DefaultRouter()
 router.register(r'categorias', CategoriaCursoViewSet)
 router.register(r'cursos', CursoViewSet)
 router.register(r'estudiantes', EstudianteViewSet)
+router.register(r'favoritos', FavoritoViewSet)
+router.register(r'inscripciones',InscripcionViewSet)
+router.register(r'notificaciones', NotificacionViewSet)
+
 
 route = ExtendedSimpleRouter()
 route.register(r'user', UserViewSet)

@@ -1,5 +1,5 @@
 from usuario.models import Usuario
-from aplicacion.models import Estudiante
+from aplicacion.models import Estudiante,Favorito, Inscripcion, Notificacion
 
 from aplicacion.models import Estudiante,CategoriaCurso, Curso
 from rest_framework import serializers
@@ -24,3 +24,18 @@ class EstudianteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudiante
         fields = '__all__' 
+
+class FavoritoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorito
+        fields = '__all__'
+
+class InscripcionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inscripcion
+        fields = '__all__'
+
+class NotificacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notificacion
+        fields = '__all__'
