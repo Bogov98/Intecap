@@ -179,9 +179,9 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'descripcion API',
     'VERSION': '1.0.0',
     'CONTACT': {
-        'name': 'Mynor',
-        'url': 'https://www.intecap.com/',
-        'email': 'mynorguarchaj99@gmail.com',
+        'name': 'Intecap',
+        'url': 'https://www.intecap.edu.gt/centros/delegaciontotonicapan/',
+        'email': '',
     },
     'SWAGGER_UI_SETTINGS': {
         'persistAuthorization': True, #permite que al guarde el token durante la sesion
@@ -192,7 +192,7 @@ SPECTACULAR_SETTINGS = {
 #--------------SIMPLE_JWT
 SIMPLE_JWT = {
 
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),  # Duración del token en minutos
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Duración del token en minutos
     #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Duración de renovación automática del token
     #'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Duración máxima del token
     #'SLIDING_TOKEN_REFRESH_ALMOST_LIFETIME': timedelta(days=6),  # Duración para renovar antes de la expiración

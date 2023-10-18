@@ -30,7 +30,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    path('user/register/', UserRegisterView.as_view(), name='user_register'),
+    path('user/register', UserRegisterView.as_view(), name='user_register'),
     path('', include(route.urls)),
     
     # Incluye las rutas generadas por el enrutador DefaultRouter
