@@ -10,6 +10,6 @@ urlpatterns = [
     #path('register/', register, name='register'),  
    # path('inicio', views.inicio, name='index'),
     # Otras rutas y configuraciones de URL
-    path('inicio/', views.inicio, name='inicio'),
+    path('inicio', views.inicio, name='inicio'),
     # Otras rutas y configuraciones de URL
 ]
