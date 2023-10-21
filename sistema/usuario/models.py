@@ -60,3 +60,36 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def has_module_perms(self, app_label):
         # Define aquí tu lógica para los permisos de módulo
         return True
+    
+class CategoriaCurso(models.Model):
+    id_categoria = models.AutoField(primary_key=True)
+    nombre_categoria = models.CharField(max_length=255)
+    descripcion_categoria = models.TextField()
+
+    class Meta:
+        verbose_name = 'Categoría Curso'
+        verbose_name_plural = 'Categorías Curso'
+
+    def __str__(self):
+        return self.nombre_categoria
+    
+class Curso(models.Model):
+    id_curso = models.AutoField(primary_key=True)
+    nombre_curso = models.CharField(max_length=255)
+    descripcion_curso = models.TextField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    duracion = models.IntegerField()
+    horarios = models.CharField(max_length=255)
+    establecimiento = models.CharField(max_length=255)
+    costo = models.FloatField()
+    cupos_disponibles = models.IntegerField()
+    estado = models.BooleanField()
+    id_categoria = models.ForeignKey(CategoriaCurso, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Curso'
+        verbose_name_plural = 'Cursos'
+
+    def __str__(self):
+        return self.nombre_curso

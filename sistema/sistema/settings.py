@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,14 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-y3@n#6giy5@zjq2tm3p@1ilylprnt%umgi6ls*p5z#ui@p^akq"
+#SECRET_KEY = "django-insecure-y3@n#6giy5@zjq2tm3p@1ilylprnt%umgi6ls*p5z#ui@p^akq"
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
-
+#crea variable de entorno para poder accedr a las rutas
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,13 +52,19 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "corsheaders",
+<<<<<<< HEAD
    
+=======
+  
+
+>>>>>>> 0c313e38a126b477fc2274d9f2cf9d79774785bf
 
    
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -87,15 +99,24 @@ WSGI_APPLICATION = "sistema.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'intecap',
-        "USER": 'postgres',
-        "PASSWORD": '12345',
-        "HOST": 'localhost',
-        "PORT": '5431',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgresql://postgres:12345@localhost:5431/intecap',
+        conn_max_age=600
+    )
 }
+
+
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.postgresql",
+#        "NAME": 'intecap',
+#        "USER": 'postgres',
+#        "PASSWORD": '12345',
+#        "HOST": 'localhost',
+#        "PORT": '5431',
+#    }
+#}
 
 
 
@@ -139,6 +160,12 @@ USE_TZ = True
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+if not DEBUG:
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 STATICFILES_DIRS = [
     # Directorio donde se encuentran tus archivos estáticos
    
@@ -178,9 +205,9 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'descripcion API',
     'VERSION': '1.0.0',
     'CONTACT': {
-        'name': 'Mynor',
-        'url': 'https://www.intecap.com/',
-        'email': 'mynorguarchaj99@gmail.com',
+        'name': 'Intecap',
+        'url': 'https://www.intecap.edu.gt/centros/delegaciontotonicapan/',
+        'email': '',
     },
     'SWAGGER_UI_SETTINGS': {
         'persistAuthorization': True, #permite que al guarde el token durante la sesion
@@ -191,7 +218,7 @@ SPECTACULAR_SETTINGS = {
 #--------------SIMPLE_JWT
 SIMPLE_JWT = {
 
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Duración del token en minutos
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Duración del token en minutos
     #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Duración de renovación automática del token
     #'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Duración máxima del token
     #'SLIDING_TOKEN_REFRESH_ALMOST_LIFETIME': timedelta(days=6),  # Duración para renovar antes de la expiración

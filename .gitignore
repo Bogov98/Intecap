@@ -1,19 +1,20 @@
 .vscode/
-*.log
-*.pot
-*.pyc
+
+.pot
+.pyc
 .envs
 media/
 
 # Archivos y directorios generados por Django
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.db
-*.sqlite3
-*.log
-*/migrations/
+.pyc
+.pyo
+.pyd
+.db
+.sqlite3
+.log
+/migrations/
+db.sqlite3
 
 # Archivos de caché de Python
 __pycache__/
