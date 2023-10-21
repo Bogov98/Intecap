@@ -52,8 +52,12 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "corsheaders",
+<<<<<<< HEAD
+   
+=======
   
 
+>>>>>>> 0c313e38a126b477fc2274d9f2cf9d79774785bf
 
    
 ]
