@@ -4,7 +4,7 @@
 <div class="right_col" role="main">
 <body>
   <div class="container mt-5">
-    <button class="btn btn-primary">Mi Botón</button>
+    <a href="{% url 'task:create_curso_view' %}"class="btn btn-primary">Crear Curso</a>
   </div>
   
   <table class="table table-bordered">
@@ -37,10 +37,13 @@
         <td>{{ cursos.establecimiento }}</td>
         <td>{{ cursos.costo }}</td>
         <td>{{ cursos.cupos_disponibles }}</td>
-        <td>{{ cursos.id_categoria_id }}</td>
+        <td>{{ cursos.id_categoria.nombre_categoria }}</td>
         <td>
             <a href="{% url 'task:editar_curso_view' idcurso=cursos.id_curso %}" class="btn btn-info editar-btn">Editar</a>
         </td>
+        <td>
+          <a href="{% url 'task:formulario_view' idcurso=cursos.id_curso %}" class="btn btn-info editar-btn">Formulario</a>
+      </td>
         <td>
             <a href="{% url 'task:eliminar_curso' idcurso=cursos.id_curso %}" class="btn btn-info editar-btn">Eliminar</a>
         </td>

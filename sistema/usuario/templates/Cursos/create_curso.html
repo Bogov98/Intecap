@@ -4,6 +4,8 @@
 {% load static %}
 {% block content %}
 
+
+<div class="right_col" role="main">
     <h1 class="text-center">Formulario de Curso</h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -55,20 +57,21 @@
                     <input type="number" class="form-control" id="cupos_disponibles" name="cupos_disponibles" required>
                 </div>
                 
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="estado" name="estado" checked>
-                    <label class="form-check-label" for="estado">Activo</label>
-                </div>
-                
-                <!-- Campo para la categoría del curso (puedes usar un select o input según tus necesidades) -->
                 <div class="form-group">
-                    <label for="id_categoria">Categoría del Curso:</label>
-                    <input type="text" class="form-control" id="id_categoria" name="id_categoria" required>
+                    <label for="descripcion">Categoria del curso:</label>
+                    <select id="id_categoria" name="id_categoria" class="form-control select2" data-url="{% url 'task:search_categoria' %}" required>
+                    </select>
                 </div>
+                <!-- Campo para la categoría del curso (puedes usar un select o input según tus necesidades) -->
+
+   
                 
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </div>
     </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 {% endblock %}
