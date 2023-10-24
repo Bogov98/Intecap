@@ -3,6 +3,16 @@
 {% block content %}
 <div class="right_col" role="main">
 <body>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Seleccionar una opción
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for curso in cursos %}
+            <a class="dropdown-item" href="{% url 'task:estudiantes_curso_filtro' idcurso=curso.id_curso %}">{{curso.nombre_curso}}</a>
+        {% endfor %}
+    </div>
+</div>
 
   
   <table class="table table-bordered">
@@ -33,6 +43,9 @@
         <td>{{ estudiante.fecha_nacimiento }}</td>
         <td>{{ estudiante.edad }}</td>
         <td>{{ estudiante.id_curso.nombre_curso }}</td>
+        <td>
+          <a href="{% url 'task:editar_estudiante_view' idestudiante=estudiante.id_estudiante %}" class="btn btn-info editar-btn">Editar</a>
+      </td>
         <td>
             <a href="#" class="btn btn-info editar-btn">Eliminar</a>
         </td>

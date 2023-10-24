@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Usuario
-from .models import CategoriaCurso
-from .models import Curso
-from .models import Estudiante
-from .models import Inscripcion
-from .models import Notificacion
+from api.models import Usuario
+from api.models import CategoriaCurso
+from api.models import Curso
+from api.models import Estudiante
+from api.models import Inscripcion
+from api.models import Notificacion
 from django.utils import timezone
 from django.http import JsonResponse
 from django.db.models import Q
@@ -30,7 +30,9 @@ def login_view(request):
 @login_required(login_url='task:login')
 @user_passes_test(lambda u: u.is_superuser)
 def inicio(request):
-    return render(request, 'index.html')
+    cursos = Curso.objects.all()
+    return render(request, 'index.html', {'cursos': cursos}
+    )
 
 @login_required(login_url='task:login')
 @user_passes_test(lambda u: u.is_superuser)
@@ -162,12 +164,63 @@ def enviar_formulario(request,idcurso):
         return render(request, 'Formulario/registro_enviado.html')
     #return redirect('task:formulario_view',idcurso=idcurso)
 
-@login_required(login_url='task:login')
-@user_passes_test(lambda u: u.is_superuser)
-def estudiantes_view(request):
-    estudiantes = Estudiante.objects.all()
-    return render(request, 'Estudiante/estudiantes.html', {'estudiantes': estudiantes})   
+  
 
 def logout_view(request):
     logout(request)
     return redirect('task:login')
+
+@login_required(login_url='task:login')
+@user_passes_test(lambda u: u.is_superuser)
+def search_Curso(request):
+     if request.method == 'POST':
+        search = request.POST['search']
+        curso = Curso.objects.filter(Q(nombre_curso__icontains=search) | Q(cupos_disponibles__icontains=search))
+        return render(request, 'Cursos/cursos.html', {'cursos': curso})
+
+def estudiantes_view(request):
+    estudiantes = Estudiante.objects.all()
+    cursos=Curso.objects.all()
+    datos={
+        'estudiantes':estudiantes,
+        'cursos':cursos,
+    }
+    return render(request, 'Estudiante/estudiantes.html', datos)
+
+def usuarios_view(request):
+    usuarios_view = Usuario.objects.all()
+    return render(request, 'Usuarios/usuarios.html', {'usuarios': usuarios_view})
+
+def editar_estudiante_view(request,idestudiante):
+    estudiante = Estudiante.objects.get(id_estudiante=idestudiante)
+    return render(request, 'Estudiante/editar.html',{'estudiante':estudiante}) 
+
+def estudiantes_curso_filtro(request,idcurso):
+    estudiantes = Estudiante.objects.filter(id_curso_id=idcurso)
+    cursos=Curso.objects.all()
+    datos={
+        'estudiantes':estudiantes,
+        'cursos':cursos,
+    }
+    return render(request, 'Estudiante/estudiantes.html', datos)
+
+def editar_estudiante(request,idestudiante,idcurso):
+    if request.method == 'POST':
+        estudiante = Estudiante.objects.get(id_estudiante=idestudiante)
+        dpi = request.POST['dpi']
+        nombre = request.POST['nombre']
+        genero = request.POST['genero']
+        escolaridad = request.POST['escolaridad']
+        telefono = request.POST['telefono']
+        direccion = request.POST['direccion']
+        etnia = request.POST['etnia']
+        fecha_nacimiento = request.POST['fecha_nacimiento']
+        edad = request.POST['edad']
+        estudiante = Estudiante(id_estudiante=idestudiante,dpi=dpi,nombre=nombre,genero=genero,escolaridad=escolaridad,telefono=telefono,direccion=direccion,etnia=etnia,fecha_nacimiento=fecha_nacimiento,edad=edad,id_curso_id=idcurso)
+        estudiante.save()
+        return redirect('task:estudiantes_view')
+    return render(request, 'Estudiante/editar.html')
+
+def usuarios_view(request):
+    usuarios_view = Usuario.objects.all()
+    return render(request, 'Usuarios/usuarios.html', {'usuarios': usuarios_view})

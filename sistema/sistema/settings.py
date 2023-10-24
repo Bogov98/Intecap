@@ -15,6 +15,7 @@ from datetime import timedelta
 import dj_database_url
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'aplicacion',
+    "aplicacion",
     "usuario",
     "api",
     "rest_framework",
@@ -94,27 +95,34 @@ WSGI_APPLICATION = "sistema.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Feel free to alter this value to suit your needs.
+#        default='postgresql://postgres:12345@localhost:5431/intecap',
+#        #default='postgres://intecap_user:XluwRXotmY8Cs3wvk8LFYvBwJ6tLT8kM@dpg-cko6dv7kc2qc73fdrt9g-a.oregon-postgres.render.com/intecap',
+#         conn_max_age=600
+#     )
+# }
+
+
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-       default='postgresql://postgres:12345@localhost:5431/intecap',
-       #default='postgres://intecap_user:XluwRXotmY8Cs3wvk8LFYvBwJ6tLT8kM@dpg-cko6dv7kc2qc73fdrt9g-a.oregon-postgres.render.com/intecap',
-        conn_max_age=600
-    )
+       #default='postgresql://postgres:12345@localhost:5431/intecap', #base de datos local
+       default='postgres://intecap_user:XluwRXotmY8Cs3wvk8LFYvBwJ6tLT8kM@dpg-cko6dv7kc2qc73fdrt9g-a.oregon-postgres.render.com/intecap',   #base de datos produccion
+        conn_max_age=600)
 }
 
-
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.postgresql",
-#        "NAME": 'intecap',
-#        "USER": 'postgres',
-#        "PASSWORD": '12345',
-#        "HOST": 'localhost',
-#        "PORT": '5431',
-#    }
-#}
-
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": 'intecap',
+#         "USER": 'postgres',
+#         "PASSWORD": '12345',
+#         "HOST": 'localhost',
+#         "PORT": '5432',
+#     }
+# } 
 
 
 # Password validation
@@ -164,9 +172,13 @@ if not DEBUG:
 
 
 STATICFILES_DIRS = [
-    #os.path.join(BASE_DIR, 'static'),
+    # Directorio donde se encuentran tus archivos estáticos
+   
+    os.path.join(BASE_DIR, 'aplicacion/static'),
+    #BASE_DIR / 'static'
     #os.path.join(BASE_DIR, 'usuario/static'),
 ]
+
 
 
 
