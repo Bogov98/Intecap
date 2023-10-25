@@ -25,6 +25,21 @@ urlpatterns = [
     path('editar_estudiante_view/<int:idestudiante>/', views.editar_estudiante_view, name='editar_estudiante_view'),
     path('editar_estudiante/<int:idestudiante>/<int:idcurso>/', views.editar_estudiante, name='editar_estudiante'),
     path('usuarios_view/', views.usuarios_view, name='usuarios_view'),
+    path('crear_usuario_view/', views.crear_usuario_view, name='crear_usuario_view'),
+    path('crear_usuario/', views.crear_usuario, name='crear_usuario'),
+    path('editar_usuario_view/<int:idusuario>/', views.editar_usuario_view, name='editar_usuario_view'),
+    path('editar_usuario/<int:idusuario>/', views.editar_usuario, name='editar_usuario'),
+    path('eliminar_usuario/<int:idusuario>/', views.eliminar_usuario, name='eliminar_usuario'),
+
+    path('categoria_cursos/', views.categoriaCursos, name='categoria_cursos'),
+    path('agregar_categoria_curso', views.categoriaCursos, name='agregar_categoria_curso'),
+
+    path('mostrar_categorias', views.categoriaCursos, name='mostrar_categorias'),
+    path('editar_categoria_view/<int:categoria_id>/', views.editar_categoria_view, name='editar_categoria_view'),
+    path('agregar_categoria_curso', views.editar_categoria, name='agregar_categoria_curso'),
+    path('editar_categoria/<int:categoria_id>/', views.editar_categoria, name='editar_categoria'),
+    path('categoria_curso_view/', views.categoria_curso_view, name='categoria_curso_view'),
+    path('eliminar_categoria/<int:categoria_id>/', views.eliminar_categoria, name='eliminar_categoria'),    
 
     
 ]
