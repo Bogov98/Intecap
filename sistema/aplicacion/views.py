@@ -270,10 +270,16 @@ def crear_usuario(request):
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
+        genero = request.POST['genero']
+        escolaridad=request.POST['escolaridad']
+        telefono=request.POST['telefono']
+        direccion=request.POST['direccion']
+        etnia=request.POST['etnia']
+        fecha_nacimiento=request.POST['fecha_nacimiento']
+        edad=request.POST['edad']
         if password == password2:
             password=make_password(password)
-
-            usuario = Usuario(nombre=nombre, apellido=apellido,dpi=dpi, email=email, password=password)
+            usuario = Usuario(nombre=nombre, apellido=apellido,dpi=dpi, email=email, password=password,genero=genero,escolaridad=escolaridad,telefono=telefono,direccion=direccion,etnia=etnia,fecha_nacimiento=fecha_nacimiento,edad=edad)
             usuario.is_staff = True
             usuario.is_superuser = True
             usuario.save()
@@ -301,7 +307,13 @@ def editar_usuario(request, idusuario):
         email = request.POST['email']
         password = request.POST.get('password')  # Usamos get para manejar la ausencia de password
         password2 = request.POST.get('password2')  # Usamos get para manejar la ausencia de password2
-        
+        genero = request.POST['genero']
+        escolaridad=request.POST['escolaridad']
+        telefono=request.POST['telefono']
+        direccion=request.POST['direccion']
+        etnia=request.POST['etnia']
+        edad=request.POST['edad']
+        fecha_nacimiento=request.POST['fecha_nacimiento']
         try:
             usuario = Usuario.objects.get(id_usuario=idusuario)
         except Usuario.DoesNotExist:
@@ -313,6 +325,13 @@ def editar_usuario(request, idusuario):
         usuario.apellido = apellido
         usuario.dpi = dpi
         usuario.email = email
+        usuario.genero = genero
+        usuario.escolaridad = escolaridad
+        usuario.telefono = telefono
+        usuario.direccion = direccion
+        usuario.etnia = etnia
+        usuario.fecha_nacimiento = fecha_nacimiento
+        usuario.edad = edad
         
         # Verifica si el campo de contraseña ha cambiado
         if password:
@@ -346,7 +365,7 @@ def categoriaCursos(request):
         # Crea una nueva instancia de CategoriaCurso y guárdala en la base de datos
         nueva_categoria = CategoriaCurso(nombre_categoria=nombre_categoria, descripcion_categoria=descripcion_categoria)
         nueva_categoria.save()
-        return redirect('categoria_curso_view')
+        return redirect('task:categoria_curso_view')
     
     
 
