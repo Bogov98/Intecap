@@ -7,6 +7,7 @@ from api.models import Curso
 from api.models import Estudiante
 from api.models import Inscripcion
 from api.models import Notificacion
+from api.models import Notificacion_Curso
 from django.utils import timezone
 from django.http import JsonResponse
 from django.db.models import Q
@@ -74,6 +75,12 @@ def create_curso(request):
         id_categoria = request.POST['id_categoria']
         curso = Curso(nombre_curso=nombre, descripcion_curso=descripcion,fecha_inicio=fecha_inicio,fecha_fin=fecha_fin,duracion=duracion,horarios=horarios,establecimiento=establecimiento,costo=costo,cupos_disponibles=cupos_disponibles,estado=estado,id_categoria_id=id_categoria)
         curso.save()
+        curso2=Curso.objects.get(nombre_curso=nombre)
+        notificacion_curso=Notificacion_Curso(
+            mensaje="Hemos Creado un nuevo Curso de "+nombre,
+            fecha_creacion=timezone.now(),
+            id_curso_id=curso2.id_curso,
+        )
         return redirect('task:curso_view')
     return render(request, 'Cursos/create_curso.html')
 
